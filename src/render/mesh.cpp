@@ -770,6 +770,8 @@ Mesh<Float, Spectrum>::sample_position(Float time, const Point2f &sample_, Mask 
     ps.time  = time;
     ps.pdf   = m_area_pmf.normalization();
     ps.delta = false;
+    ps.pidx  = face_idx;
+    ps.buv   = b;
 
     if (has_vertex_texcoords()) {
         Point2f uv0 = vertex_texcoord(fi[0], active),
@@ -1457,6 +1459,8 @@ Mesh<Float, Spectrum>::compute_surface_interaction(const Ray3f &ray,
 
     // Texture coordinates (if available)
     si.uv = Point2f(b1, b2);
+
+    si.buv = Point2f(b1, b2);
 
     std::tie(si.dp_du, si.dp_dv) = coordinate_system(si.n);
 

@@ -65,6 +65,16 @@ public:
         PYBIND11_OVERRIDE(Spectrum, BSDF, eval_diffuse_reflectance, si, active);
     }
 
+    Spectrum eval_specular_reflectance(const SurfaceInteraction3f &si,
+                                       Mask active) const override {
+        PYBIND11_OVERRIDE(Spectrum, BSDF, eval_specular_reflectance, si, active);
+    }
+
+    Float eval_roughness(const SurfaceInteraction3f &si,
+                         Mask active) const override {
+        PYBIND11_OVERRIDE_PURE(Float, BSDF, eval_roughness, si, active);
+    }
+
     Spectrum eval_null_transmission(const SurfaceInteraction3f &si,
                                       Mask active) const override {
         PYBIND11_OVERRIDE(Spectrum, BSDF, eval_null_transmission, si, active);
@@ -146,6 +156,14 @@ template <typename Ptr, typename Cls> void bind_bsdf_generic(Cls &cls) {
                 return bsdf->has_attribute(name, active);
             },
             "name"_a, "active"_a = true, D(BSDF, has_attribute))
+        .def("eval_specular_reflectance",
+             [](Ptr bsdf, const SurfaceInteraction3f &si, Mask active) {
+                 return bsdf->eval_specular_reflectance(si, active);
+             }, "si"_a, "active"_a = true, D(BSDF, eval_specular_reflectance))
+        .def("eval_roughness",
+             [](Ptr bsdf, const SurfaceInteraction3f &si, Mask active) {
+                 return bsdf->eval_roughness(si, active);
+             }, "si"_a, "active"_a = true)
        .def("eval_attribute",
             [](Ptr bsdf, const std::string &name,
                const SurfaceInteraction3f &si, const Mask &active) {

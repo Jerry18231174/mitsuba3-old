@@ -516,6 +516,27 @@ public:
         return { F * value & active, dr::select(active, pdf, 0.f) };
     }
 
+    Spectrum eval_diffuse_reflectance(const SurfaceInteraction3f & si,
+                                       Mask active) const override {
+        if (m_specular_reflectance) {
+            return m_specular_reflectance->eval(si, active);
+        }
+        return Color3f(1.0f, 1.0f, 1.0f);
+    }
+    
+    Spectrum eval_specular_reflectance(const SurfaceInteraction3f & si,
+                                       Mask active) const override {
+        if (m_specular_reflectance) {
+            return m_specular_reflectance->eval(si, active);
+        }
+        return Color3f(1.0f, 1.0f, 1.0f);
+    }
+
+    Float eval_roughness(const SurfaceInteraction3f &si,
+                                      Mask active) const override {
+        return m_alpha_u->eval_1(si, active);
+    }
+
     std::string to_string() const override {
         std::ostringstream oss;
         oss << "RoughConductor[" << std::endl

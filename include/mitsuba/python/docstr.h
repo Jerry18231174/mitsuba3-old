@@ -839,6 +839,19 @@ Parameter ``si``:
 Returns:
     An trichromatic intensity or reflectance value)doc";
 
+static const char *__doc_mitsuba_BSDF_eval_specular_reflectance =
+R"doc(Evaluate the specular reflectance
+
+This method approximates the total specular reflectance for a given
+direction. For some materials, an exact value can be computed
+inexpensively. When this is not possible, the value is approximated by
+evaluating the BSDF for a normal outgoing direction and returning this
+value multiplied by pi. This is the default behaviour of this method.
+
+Parameter ``si``:
+    A surface interaction data structure describing the underlying
+    surface position.)doc";
+
 static const char *__doc_mitsuba_BSDF_eval_diffuse_reflectance =
 R"doc(Evaluate the diffuse reflectance
 
@@ -5645,6 +5658,10 @@ static const char *__doc_mitsuba_PositionSample_delta =
 R"doc(Set if the sample was drawn from a degenerate (Dirac delta)
 distribution)doc";
 
+static const char *__doc_mitsuba_PositionSample_pidx = R"doc(//! @})doc";
+
+static const char *__doc_mitsuba_PositionSample_buv = R"doc(//! @})doc";
+
 static const char *__doc_mitsuba_PositionSample_n = R"doc(Sampled surface normal (if applicable))doc";
 
 static const char *__doc_mitsuba_PositionSample_operator_array = R"doc(//! @})doc";
@@ -8946,6 +8963,8 @@ Returns:
     coordinates.)doc";
 
 static const char *__doc_mitsuba_SurfaceInteraction_uv = R"doc(UV surface coordinates)doc";
+
+static const char *__doc_mitsuba_SurfaceInteraction_buv = R"doc(Barycentric UV coordinates partials)doc";
 
 static const char *__doc_mitsuba_SurfaceInteraction_wi = R"doc(Incident direction in the local shading frame)doc";
 

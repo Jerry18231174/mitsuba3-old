@@ -117,6 +117,7 @@ public:
     std::pair<DirectionSample3f, Spectrum>
     sample_direction(const Interaction3f &it, const Point2f &sample, Mask active) const override {
         MI_MASKED_FUNCTION(ProfilerPhase::EndpointSampleDirection, active);
+        // std::cout << "In emitter::sample_direction" << std::endl;
 
         if constexpr (drjit::is_jit_v<Float>) {
             if (!m_shape)
@@ -164,6 +165,7 @@ public:
 
         UnpolarizedSpectrum spec = m_radiance->eval(si, active) / ds.pdf;
         ds.emitter = this;
+        // std::cout << "Return from emitter::sample_direction" << std::endl;
         return { ds, depolarizer<Spectrum>(spec) & active };
     }
 

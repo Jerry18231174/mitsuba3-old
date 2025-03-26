@@ -109,6 +109,7 @@ struct SilhouetteSample : public PositionSample<Float_, Spectrum_> {
     using Float    = Float_;
     using Spectrum = Spectrum_;
 
+    // MI_IMPORT_BASE(PositionSample, p, n, uv, time, pdf, delta, pidx, buv)
     MI_IMPORT_BASE(PositionSample, p, n, uv, time, pdf, delta)
 
     MI_IMPORT_RENDER_BASIC_TYPES()
@@ -206,6 +207,7 @@ struct SilhouetteSample : public PositionSample<Float_, Spectrum_> {
     //! @}
     // =============================================================
 
+    // DRJIT_STRUCT(SilhouetteSample, p, n, uv, time, pdf, delta, pidx, buv,
     DRJIT_STRUCT(SilhouetteSample, p, n, uv, time, pdf, delta,
                  discontinuity_type, d, silhouette_d, prim_index, scene_index,
                  flags, projection_index, shape, foreshortening, offset)
